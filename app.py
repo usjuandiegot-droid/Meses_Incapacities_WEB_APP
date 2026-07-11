@@ -71,11 +71,19 @@ def procesar():
 
     if len(archivos_generados) == 1:
 
+        archivo = archivos_generados[0]
+    
+        print("========== ENVIANDO ==========")
+        print("Archivo:", archivo)
+        print("Existe:", os.path.exists(archivo))
+        print("Tamaño:", os.path.getsize(archivo))
+    
         return send_file(
-            archivos_generados[0],
-            as_attachment=True
+            archivo,
+            as_attachment=True,
+            download_name=os.path.basename(archivo)
         )
-
+    
     # Si hay dos -> ZIP
 
     ruta_zip = os.path.join(
@@ -96,11 +104,16 @@ def procesar():
                 arcname=os.path.basename(archivo)
             )
 
+    print("========== ZIP ==========")
+    print("Archivo:", ruta_zip)
+    print("Existe:", os.path.exists(ruta_zip))
+    print("Tamaño:", os.path.getsize(ruta_zip))
+    
     return send_file(
         ruta_zip,
-        as_attachment=True
+        as_attachment=True,
+        download_name="Resultado.zip"
     )
-
 
 if __name__ == "__main__":
     app.run(debug=True)
