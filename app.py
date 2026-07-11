@@ -1,3 +1,13 @@
+print("IMPORTANDO APP")
+
+from procesador import (
+    procesar_colombia,
+    procesar_peru,
+    limpiar_outputs
+)
+
+print("PROCESADOR IMPORTADO")
+
 from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
 import os
@@ -29,7 +39,7 @@ def home():
 
 @app.route("/procesar", methods=["POST"])
 def procesar():
-
+    
     limpiar_outputs()
 
     colombia = request.files.get("colombia")
