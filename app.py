@@ -3,7 +3,11 @@ from flask_cors import CORS
 import os
 import zipfile
 
-from procesador import procesar_colombia, procesar_peru
+from procesador import (
+    procesar_colombia,
+    procesar_peru,
+    limpiar_outputs
+)
 
 app = Flask(__name__)
 CORS(app)
@@ -25,6 +29,8 @@ def home():
 
 @app.route("/procesar", methods=["POST"])
 def procesar():
+
+    limpiar_outputs()
 
     colombia = request.files.get("colombia")
     peru = request.files.get("peru")
@@ -99,10 +105,15 @@ def procesar():
 
         for archivo in archivos_generados:
 
-            zipf.write(
-                archivo,
-                arcname=os.path.basename(archivo)
-            )
+            if os.path.exists(archivo):
+        
+                zipf.write(
+                    archivo,
+                    arcname=os.path.basename(archivo)
+                )
+        
+            else:
+                print(f"No existe para ZIP: {archivo}")
 
     print("========== ZIP ==========")
     print("Archivo:", ruta_zip)
