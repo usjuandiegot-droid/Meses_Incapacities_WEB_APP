@@ -103,12 +103,7 @@ def procesar_archivo(ruta_entrada, nombre_salida):
                 inplace=True
             )
             break
-    print("1 - Leyendo Excel")
-    df = pd.read_excel(ruta_entrada)
-    
-    print("2 - Excel leído")
-    
-   
+
     # ------------------------------------------------------
     # VALIDACIÓN DE COLUMNAS
     # ------------------------------------------------------
@@ -121,9 +116,6 @@ def procesar_archivo(ruta_entrada, nombre_salida):
             f"Faltan columnas esperadas: {col_ini} o {col_fin}"
         )
 
-     df.columns = df.columns.str.strip()
-    
-    print("3 - Columnas listas")
 
     # ------------------------------------------------------
     # PREPARACIÓN DE FECHAS
@@ -154,7 +146,7 @@ def procesar_archivo(ruta_entrada, nombre_salida):
         |
         df[col_fin].isna()
     )
-    print("4 - Fechas convertidas")
+
 
     # ------------------------------------------------------
     # CORRECCIÓN FECHAS INVERTIDAS
@@ -230,7 +222,7 @@ def procesar_archivo(ruta_entrada, nombre_salida):
         axis=1
     )
 
-    print("5 - Explode terminado")
+
 
     # ------------------------------------------------------
     # VALIDACIÓN CÓDIGO
@@ -273,7 +265,7 @@ def procesar_archivo(ruta_entrada, nombre_salida):
             columns=[None]
         )
 
-    print("6 - Pivot terminado")
+
 
     # ------------------------------------------------------
     # ORDENAR MESES CRONOLÓGICAMENTE
@@ -342,7 +334,7 @@ def procesar_archivo(ruta_entrada, nombre_salida):
         how="left"
 
     )
-    print("7 - Merge terminado")
+
 
 
     # Columnas finales:
@@ -387,7 +379,7 @@ def procesar_archivo(ruta_entrada, nombre_salida):
             index=False,
             sheet_name="DATA"
         )
-    print("8 - Excel guardado")
+
 
     print("==============================")
     print("PROCESAMIENTO FINALIZADO")
